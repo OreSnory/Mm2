@@ -60,7 +60,7 @@ local Shop = ReplicatedStorage.Remotes.Shop
 
 local autoFarm = getgenv().Config["AutoFarm"]
 local weaponTracker = getgenv().Config["New Weapon Tracker"]
-local autoBuy = getgenv().Config["Auto Buy"]
+local autoBuy = weaponTracker["Auto Buy"]
 
 local speed = autoFarm.Speed
 local depth = autoFarm.Depth
@@ -276,7 +276,9 @@ local function sendWebhook(itemId, boxId)
     request({
         Url = weaponTracker.WebhookURL,
         Method = "POST",
-        Headers = {["Content-Type"] = "application/json"},
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
         Body = HttpService:JSONEncode({
             embeds = {{
                 description = "**You unboxed a " .. item.Rarity .. " " .. item.ItemType .. "!**\n\n"
@@ -288,8 +290,12 @@ local function sendWebhook(itemId, boxId)
                     .. "> **User:** ||" .. LocalPlayer.Name .. "||\n"
                     .. "> **In Inventory:** `" .. tostring(ProfileData.Weapons.Owned[itemId]) .. "`",
                 color = tonumber(Sync.Rarity[item.Rarity]:ToHex(), 16),
-                footer = {text = "Mm2 AutoFarm | " .. os.date("%d/%m/%Y %H:%M")},
-                thumbnail = imageUrl and {url = imageUrl}
+                footer = {
+                    text = "Mm2 AutoFarm | " .. os.date("%d/%m/%Y %H:%M")
+                },
+                thumbnail = imageUrl and {
+                    url = imageUrl
+                }
             }}
         })
     })
