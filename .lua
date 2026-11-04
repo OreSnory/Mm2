@@ -4,7 +4,7 @@ end
 
 local Whitelist = loadstring(game:HttpGet("https://raw.githubusercontent.com/OreSnory/WhitelistSystem/refs/heads/main/.lua", true))()
 
-if not Whitelist.Activate(getgenv().Key) then
+if not Whitelist.Activate(getgenv().Script_Key) then
     return
 end
 
